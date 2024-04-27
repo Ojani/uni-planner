@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <script defer src="main.js"></script>
+    <title>Uni Planner</title>
+</head>
+<body>
+
+    <h1>University Classes Planner</h1>
+
+    <main class="main">
+        <div class="semesters">
+            <h2>Semesters</h2>
+            <div class="availableSemesters"></div>
+            <div class="addSemester btn" onclick="addSemester()">Add Semester</div>
+        </div>
+        
+        <div class="courses">
+            <h2>Courses</h2>
+            <div class="availableCourses"></div>
+
+            <div class="newCourseForm">
+
+                <div class="courseFormSection">
+                    <div class="formItem">
+                        <p>Course Code</p>
+                        <input placeholder="MATE3031" required class="newCourseCode" type="text">
+                    </div>
+                </div>
+                
+                <div class="courseFormSection">
+                    <div class="formItem">
+                        <p>Name</p>
+                        <input placeholder="Calculus I" required class="newCourseName" type="text">
+                    </div>
+                    <div class="formItem">
+                        <p>Credits</p>
+                        <input placeholder="3" required class="newCourseCredits" type="number">
+                    </div>
+                </div>
+                <div class="courseFormSection">
+                    <div class="formItem">
+                        <p>Prerequisites</p>
+                        
+                    </div>
+                    <div class="formItem">
+                        <p>Corequisites</p>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="addCourse btn" onclick="addCourse()">Add Course</div>
+        </div>
+    </main>
+    
+</body>
+</html>
