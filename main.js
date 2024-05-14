@@ -132,7 +132,10 @@ function addCourseToSemester(semesterIndex, courseCode) {
 }
 
 function removeSemester(semesterIndex) {
-    semesters.pop(semesterIndex)
+    for(courseCode of semesters[semesterIndex]) {
+       takenCourses.delete(courseCode)
+    }
+    semesters.splice(semesterIndex, 1)
     updateSemesters()
 }
 
@@ -178,7 +181,7 @@ function updateCourses(courses) {
 
     wrapper.innerHTML = ""
 
-    // first adding courses that aren't already in use and then addinf the ones in use at the end
+    // first adding courses that aren't already in use and then adding the ones in use at the end
     const orderedCourses = Object.keys(courses).filter(courseCode => !takenCourses.has(courseCode)).
     concat(Object.keys(courses).filter(courseCode => takenCourses.has(courseCode) ))
 
