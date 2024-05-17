@@ -181,8 +181,21 @@ function updateCourses(courses) {
 
     wrapper.innerHTML = ""
 
+    var totalCoursesAmt = totalCreditsAmt = coursesNotTakenAmt = creditsNotTakenAmt = 0
+
     // first adding courses that aren't already in use and then adding the ones in use at the end
-    const orderedCourses = Object.keys(courses).filter(courseCode => !takenCourses.has(courseCode)).
+    const orderedCourses = Object.keys(courses).filter(courseCode => {
+        // counting total and taken courses and credits
+        totalCoursesAmt += 1
+        totalCreditsAmt += Number(courses[courseCode].credits)
+
+        if(!takenCourses.has(courseCode)) {
+            coursesNotTakenAmt += 1
+            creditsNotTakenAmt += Number(courses[courseCode].credits)
+            return true
+        }
+
+    }).
     concat(Object.keys(courses).filter(courseCode => takenCourses.has(courseCode) ))
 
     for(let courseCode of orderedCourses) {
@@ -202,6 +215,11 @@ function updateCourses(courses) {
 
         wrapper.innerHTML += markup
     }
+
+    document.querySelector(".totalCoursesAmount").innerText = totalCoursesAmt
+    document.querySelector(".takenCoursesAmount").innerText = totalCoursesAmt - coursesNotTakenAmt
+    document.querySelector(".totalCreditsAmount").innerText = totalCreditsAmt
+    document.querySelector(".takenCreditsAmount").innerText = totalCreditsAmt - creditsNotTakenAmt
 }
 
 //  Setting funtionality to add a course to a semester via drag and drop
