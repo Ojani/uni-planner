@@ -13,13 +13,13 @@
 
     <main class="main">
         <div class="semesters">
-            <h2>Semesters</h2>
+            <h2 class="sectionTitle">Semesters</h2>
             <div class="availableSemesters"></div>
             <div class="addSemester btn" onclick="addSemester()">Add Semester</div>
         </div>
         
         <div class="courses">
-            <h2>Courses</h2>
+            <h2 class="sectionTitle">Courses</h2>
             <div class="availableCourses"></div>
 
             <div class="coursesInformation">
@@ -28,6 +28,8 @@
             </div>
 
             <div class="newCourseForm">
+
+                <h2 class="newCourseFormTitle">Add Course</h2>
 
                 <div class="courseFormSection">
                     <div class="formItem">
@@ -41,12 +43,15 @@
                         <p>Name</p>
                         <input placeholder="Calculus I" required class="newCourseName" type="text">
                     </div>
+                </div>
+                
+                <div class="courseFormSection">
                     <div class="formItem">
                         <p>Credits</p>
                         <input placeholder="3" required class="newCourseCredits" type="number">
                     </div>
                 </div>
-                <div class="courseFormSection">
+                <!-- <div class="courseFormSection">
                     <div class="formItem">
                         <p>Prerequisites</p>
                         
@@ -55,9 +60,12 @@
                         <p>Corequisites</p>
                         
                     </div>
-                </div>
+                </div> -->
+                
+                <div class="addCourse btn" onclick="addCourse()">Add Course</div>
+                <label for="loadCoursesFileBtn" class="loadCourses btn">Load Courses</label>
+                <input id="loadCoursesFileBtn" type="file" accept=".json">
             </div>
-            <div class="addCourse btn" onclick="addCourse()">Add Course</div>
         </div>
     </main>
     

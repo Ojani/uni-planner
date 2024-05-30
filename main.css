@@ -1,3 +1,8 @@
+:root {
+    --highlight: #167b2a;
+    --highlight-dark: #126422;
+}
+
 body {
     font-family: arial;
     margin: 0;
@@ -11,8 +16,8 @@ body {
 
 .btn, .redbtn {
     box-shadow: 0 .1em .2em rgba(0, 0, 0, 0.7);
+    background: var(--highlight);
     border-radius: .3em;
-    background: #167b2a;
     text-align: center;
     user-select: none;
     padding: .5em 1em;
@@ -26,11 +31,17 @@ body {
 }
 
 .btn:hover {
-    background: #126422;
+    background: var(--highlight-dark);
 }
 
 .redbtn:hover {
     background: rgb(177, 0, 0);
+}
+
+/* styling both columns */
+
+.sectionTitle {
+    border-bottom: 1px solid #DDD;
 }
 
 /* Semester styles */
@@ -42,7 +53,7 @@ body {
 }
 
 .semester {
-  border-bottom: 1px solid black;  
+  border-bottom: 1px solid #999;  
 }
 
 .semester.disabled {
@@ -50,6 +61,8 @@ body {
 }
 
 .availableCourses {
+    overflow-y: scroll;
+    max-height: 50vh;
     width: 30vw;
 }
 
@@ -79,25 +92,63 @@ body {
 /* Course form */
 
 .courseFormSection {
-    display: flex;
     justify-content: space-evenly;
+    display: flex;
 }
 
 .formItem {
-    margin: 0 .5em;
+    margin: 0 5em;
+    width: 100%;
+}
+
+.newCourseForm {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 1em;
+    padding: 1em;
+}
+
+.newCourseFormTitle {
+    margin: 0 0 1em .3em;
+    font-size: 2em;
+
+}
+
+.newCourseForm input {
+    all: unset;
+
+    border-bottom: 1px solid #333;
+    display: block;
+    width: 100%;
+}
+
+.newCourseForm input:focus {
+    border-bottom: 1px solid #126422;
+}
+
+.addCourse {
+    margin-bottom: 1.5em;
+    margin-top: 3em;
+}
+
+.loadCourses {
+    display: block;
+}
+
+#loadCoursesFileBtn {
+    display: none;
 }
 
 /* Course styles */
 
 .courseWrapper {
     justify-content: space-evenly;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #777;
     box-sizing: border-box;
     display: flex;
 }
 
 .courseWrapper:first-child {
-    border-top: 1px solid black;
+    border-top: 1px solid #777;
 }
 
 .courseWrapper {

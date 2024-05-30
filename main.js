@@ -1,9 +1,9 @@
 class Course {
     constructor ({ courseCode, name, credits, taken=false, prereqs=[], coreqs=[] }) {
-        courseCode = courseCode.replace(/\s/g, '').toUpperCase()
+        // courseCode = courseCode.replace(/\s/g, '').toUpperCase()
 
-        this.discipline = courseCode.slice(0,4)
-        this.number = courseCode.slice(4, 8)
+        // this.discipline = courseCode.slice(0,4)
+        // this.number = courseCode.slice(4, 8)
         this.courseCode = courseCode
         
         this.credits = credits
@@ -95,7 +95,7 @@ function updateSemesters() {
             const courseMarkup = 
             `
             <div draggable="true" id="${courseCode}" ondragstart="draggingCourse(event, ${i})" ondragend="droppedCourseFromAnother(event, ${i})" class="courseWrapper">
-                <div class="courseCode">${course.discipline} ${course.number}</div>
+                <div class="courseCode">${courseCode}</div>
                 <div class="courseName">${course.name}</div>
                 <div class="courseCredits">${course.credits}</div>
                 <!-- <div class="coursePrereqs"></div>
@@ -151,13 +151,18 @@ updateSemesters()
 
 // Creating Courses and Semesters
 
-function addCourse() {
+function addCourse(inputs) {
 
-    const courseCode = document.querySelector(".newCourseCode").value;
-    const name = document.querySelector(".newCourseName").value;
-    const credits = document.querySelector(".newCourseCredits").value;
-    const prereqs = []
-    const coreqs = []
+    if(inputs) {
+        var [ courseCode, credits, name ] = inputs
+    }
+    else {
+        var courseCode = document.querySelector(".newCourseCode").value;
+        var name = document.querySelector(".newCourseName").value;
+        var credits = document.querySelector(".newCourseCredits").value;
+        var prereqs = []
+        var coreqs = []
+    }
 
     document.querySelectorAll(".courseFormSection input").forEach(e => e.value = "");
     const newCourse = new Course({ courseCode, name, credits, prereqs, coreqs })
@@ -206,7 +211,7 @@ function updateCourses(courses) {
         const markup = 
         `
         <div ondragstart="draggingCourse(event)" id="${courseCode}" draggable="true" class="courseWrapper ${takenCourses.has(courseCode)? "crossed" : ""}">
-            <div class="courseCode">${discipline} ${number}</div>
+            <div class="courseCode">${courseCode}</div>
             <div class="courseName">${name}</div>
             <div class="courseCredits">${credits}</div>
             <div onclick="removeCourseFromList('${courseCode}')" class="removeCourseFromList">Remove</div>
@@ -220,6 +225,29 @@ function updateCourses(courses) {
     document.querySelector(".takenCoursesAmount").innerText = totalCoursesAmt - coursesNotTakenAmt
     document.querySelector(".totalCreditsAmount").innerText = totalCreditsAmt
     document.querySelector(".takenCreditsAmount").innerText = totalCreditsAmt - creditsNotTakenAmt
+}
+
+// Loading courses from JSON file
+// format is a list of semesters, each semester a list which contains the course code, credits, and name.
+// example: [['INSO 4151', '3', 'Software Engineering Project I']]
+
+// detecting when a file has been uploaded
+fileUploadBtn = document.querySelector("#loadCoursesFileBtn")
+fileUploadBtn.onchange = () => {
+    if(fileUploadBtn.files.length == 0) return
+
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        const semesters = JSON.parse(e.target.result)
+        
+        for(semester of semesters) {
+            for(course of semester) {
+                addCourse(course)
+            }
+        }
+    }
+
+    reader.readAsText(fileUploadBtn.files[0]);
 }
 
 //  Setting funtionality to add a course to a semester via drag and drop
