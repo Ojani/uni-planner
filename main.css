@@ -142,21 +142,32 @@ body {
 
 .courseWrapper {
     justify-content: space-evenly;
-    border-bottom: 1px solid #777;
-    box-sizing: border-box;
+    border-top: 1px solid #777;
     display: flex;
+    padding: 2px;
+}
+
+.courseWrapper:hover + .courseWrapper {
+    border-top: none; 
 }
 
 .courseWrapper:first-child {
-    border-top: 1px solid #777;
+    border-top: none;
 }
 
 .courseWrapper {
     cursor: grabbing;
 }
 
+/* the paddinf being changed to 1px for hovered elements and to 0.5px for hovered elements at the
+start or end of the list is done to prevent the resizing of the elements due to the thicker border */
 .courseWrapper:hover  {
     border: 2px dashed black;
+    padding: 1px;
+}
+
+.courseWrapper:hover:first-child, .courseWrapper:hover:last-child  {
+    padding: 0.5px;
 }
 
 .courseWrapper div {
