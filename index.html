@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
-    <script defer src="main.js"></script>
+    <script type="module" src="main.js"></script>
     <title>Uni Planner</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
         <div class="semesters">
             <h2 class="sectionTitle">Semesters</h2>
             <div class="availableSemesters"></div>
-            <div class="addSemester btn" onclick="addSemester()">Add Semester</div>
+            <div class="addSemester btn">Add Semester</div>
         </div>
         
         <div class="courses">
@@ -62,7 +62,7 @@
                     </div>
                 </div> -->
                 
-                <div class="addCourse btn" onclick="addCourse()">Add Course</div>
+                <div class="addCourse btn">Add Course</div>
                 <label for="loadCoursesFileBtn" class="loadCourses btn">Load Courses</label>
                 <input id="loadCoursesFileBtn" type="file" accept=".json">
             </div>

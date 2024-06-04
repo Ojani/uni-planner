@@ -1,3 +1,5 @@
+"use strict"
+
 class Course {
     constructor ({ courseCode, name, credits, taken=false, prereqs=[], coreqs=[] }) {
         // courseCode = courseCode.replace(/\s/g, '').toUpperCase()
@@ -46,6 +48,7 @@ getCoursesFromStorage()
 getSemestersFromStorage()
 
 
+document.querySelector(".addSemester").addEventListener("click", () => addSemester());
 function addSemester() {
     semesters.push([])
     updateSemesters()
@@ -64,26 +67,32 @@ function updateSemesters() {
     // can be taken at the same time as the class that required it
     const coursesTaken = new Set()
 
-    for(i = 0; i < semesters.length; i++) {
+    for(let i = 0; i < semesters.length; i++) {
         const year = Math.floor(i / 2) + 1
         const semester = i % 2 + 1
 
         const markup = 
         `
-        <div id="${i}" ondragover="allowCourseDrop(event)" ondrop="droppingCourse(event, ${i})" class="semester semester${i}">
-            <h2>Year ${year} Semester ${semester}</h2>
-
-            <div class="coursesInSemester"></div>
-
-            <div class="totalCredits">Total Credits: <span class="credits"></span></div>
-
-            <div onclick="removeSemester(${i})" class="removeSemester redbtn">Remove Semester</div>
-        </div>
+        <h2>Year ${year} Semester ${semester}</h2>
+        <div class="coursesInSemester"></div>
+        <div class="totalCredits">Total Credits: <span class="credits"></span></div>
+        <div class="removeSemester redbtn">Remove Semester</div>
         `
 
-        wrapper.innerHTML += markup
+        // Creating the element for the course, filling it with it's html and adding it's event listeners
+        // for drag and drop
+        const semesterElement = document.createElement("div")
+        semesterElement.className = "semester semester"+i
+       
+        semesterElement.innerHTML = markup
+        
+        semesterElement.addEventListener("dragover", allowCourseDrop)
+        semesterElement.addEventListener("drop", e => droppingCourse(e, i))
+        semesterElement.querySelector(".removeSemester")
+        .addEventListener("click", () => removeSemester(i))
 
-        const semesterElement = document.querySelector(".semester"+i)
+        wrapper.appendChild(semesterElement)
+
         var totalCredits = 0
 
         for(let courseCode of semesters[i]) {
@@ -94,17 +103,27 @@ function updateSemesters() {
 
             const courseMarkup = 
             `
-            <div draggable="true" id="${courseCode}" ondragstart="draggingCourse(event, ${i})" ondragend="droppedCourseFromAnother(event, ${i})" class="courseWrapper">
-                <div class="courseCode">${courseCode}</div>
-                <div class="courseName">${course.name}</div>
-                <div class="courseCredits">${course.credits}</div>
-                <!-- <div class="coursePrereqs"></div>
-                <div class="courseCoreqs"></div> -->
-                <div onclick="removeCourseFromSemester(${i}, '${courseCode}')" class="removeCourseFromSemester">Remove</div>
-            </div>
+            <div class="courseCode">${courseCode}</div>
+            <div class="courseName">${course.name}</div>
+            <div class="courseCredits">${course.credits}</div>
+            <!-- <div class="coursePrereqs"></div>
+            <div class="courseCoreqs"></div> -->
+            <div class="removeCourseFromSemester">Remove</div>
             `
 
-            semesterElement.querySelector(".coursesInSemester").innerHTML += courseMarkup;
+            const courseElement = document.createElement("div")
+            courseElement.className = "courseWrapper"
+            courseElement.draggable = "true"
+            courseElement.id = courseCode
+            
+            courseElement.innerHTML = courseMarkup
+            
+            courseElement.addEventListener("dragstart", e => draggingCourse(e, i))
+            courseElement.addEventListener("dragend", e => droppedCourseFromAnother(e, i))
+            courseElement.querySelector(".removeCourseFromSemester")
+            .addEventListener("click", () => removeCourseFromSemester(i, courseCode))
+
+            semesterElement.querySelector(".coursesInSemester").appendChild(courseElement);
         }
 
         semesterElement.querySelector(".credits").innerHTML = totalCredits
@@ -123,7 +142,6 @@ function updateSemesters() {
     updateSemestersStorage()
     updateCourses(courses)
 }
-
 
 function addCourseToSemester(semesterIndex, courseCode) {
     if(takenCourses.has(courseCode)) return
@@ -150,6 +168,8 @@ updateSemesters()
 
 
 // Creating Courses and Semesters
+
+document.querySelector(".addCourse").addEventListener("click", () => addCourse());
 
 function addCourse(inputs) {
 
@@ -186,7 +206,10 @@ function updateCourses(courses) {
 
     wrapper.innerHTML = ""
 
-    var totalCoursesAmt = totalCreditsAmt = coursesNotTakenAmt = creditsNotTakenAmt = 0
+    var totalCoursesAmt = 0
+    var totalCreditsAmt = 0
+    var coursesNotTakenAmt = 0
+    var creditsNotTakenAmt = 0
 
     // first adding courses that aren't already in use and then adding the ones in use at the end
     const orderedCourses = Object.keys(courses).filter(courseCode => {
@@ -210,15 +233,24 @@ function updateCourses(courses) {
 
         const markup = 
         `
-        <div ondragstart="draggingCourse(event)" id="${courseCode}" draggable="true" class="courseWrapper ${takenCourses.has(courseCode)? "crossed" : ""}">
-            <div class="courseCode">${courseCode}</div>
-            <div class="courseName">${name}</div>
-            <div class="courseCredits">${credits}</div>
-            <div onclick="removeCourseFromList('${courseCode}')" class="removeCourseFromList">Remove</div>
-        </div>
+        <div class="courseCode">${courseCode}</div>
+        <div class="courseName">${name}</div>
+        <div class="courseCredits">${credits}</div>
+        <div class="removeCourseFromList">Remove</div>
         `
 
-        wrapper.innerHTML += markup
+        // <div draggable="true" class="courseWrapper ${takenCourses.has(courseCode)? "crossed" : ""}">
+        const courseElement = document.createElement("div");
+        courseElement.className = `courseWrapper ${takenCourses.has(courseCode)? "crossed" : ""}`
+        courseElement.draggable = "true"
+        courseElement.id = courseCode
+        courseElement.innerHTML = markup
+
+        courseElement.addEventListener("dragstart", draggingCourse)
+        courseElement.querySelector(".removeCourseFromList")
+        .addEventListener("click", () => removeCourseFromList(courseCode))
+
+        wrapper.appendChild(courseElement)
     }
 
     document.querySelector(".totalCoursesAmount").innerText = totalCoursesAmt
@@ -232,7 +264,7 @@ function updateCourses(courses) {
 // example: [['INSO 4151', '3', 'Software Engineering Project I']]
 
 // detecting when a file has been uploaded
-fileUploadBtn = document.querySelector("#loadCoursesFileBtn")
+const fileUploadBtn = document.querySelector("#loadCoursesFileBtn")
 fileUploadBtn.onchange = () => {
     if(fileUploadBtn.files.length == 0) return
 
@@ -264,9 +296,6 @@ function draggingCourse(ev, draggedFromSemesterIndex=-1) {
         // preventing course from being dropped in the semester it was take out of
         document.querySelector(".semester"+draggedFromSemesterIndex).classList.add("disabled");
     }
-
-
-
     ev.dataTransfer.setData("text/plain", courseCode)
 }
 
