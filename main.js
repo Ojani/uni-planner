@@ -1,5 +1,25 @@
 "use strict"
 
+import searchCourses from './lib/courseSearch.js'
+
+// Adding the options for selecting the year in the course search form
+(() => {
+    const yearSelectorElement = document.querySelector(".courseSearchYear")
+    const currentYear = new Date().getFullYear()
+    const startYear = 2005
+
+    for(let year = currentYear; year >= startYear; year -=1) {
+        const optionElement = document.createElement("option");
+        optionElement.text = optionElement.value = year
+
+        yearSelectorElement.appendChild(optionElement)
+    }
+
+    // setting the default selected year to be last year because
+    // all courses for this year may not be available yet.
+    yearSelectorElement.value = currentYear-1
+})();
+
 class Course {
     constructor ({ courseCode, name, credits, taken=false, prereqs=[], coreqs=[] }) {
         // courseCode = courseCode.replace(/\s/g, '').toUpperCase()
@@ -38,7 +58,7 @@ function getSemestersFromStorage() {
 }
 
 function getCoursesFromStorage() {
-    const result = JSON.parse(localStorage.getItem("courses"))
+    const result = JSON.parse(localStorage.getItem("courses")) || {}
     updateCourses(result)
     courses = result
 }

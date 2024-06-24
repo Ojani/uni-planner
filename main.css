@@ -125,7 +125,12 @@ body {
     border-bottom: 1px solid #126422;
 }
 
-.addCourse {
+.courseSearchYear, .courseSearchTerm {
+    font-size: inherit;
+    width: 100%;
+}
+
+.addCourse, .searchCourse {
     margin-bottom: 1.5em;
     margin-top: 3em;
 }
