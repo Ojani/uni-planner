@@ -52,7 +52,7 @@ function updateCoursesStorage() {
 }
 
 function getSemestersFromStorage() {
-    const result = JSON.parse(localStorage.getItem("semesters"))
+    const result = JSON.parse(localStorage.getItem("semesters")) || [[],[],[],[],[],[],[],[]]
     updateSemesters(result)
     semesters = result
 }
