@@ -28,43 +28,45 @@
             </div>
 
             <!-- Searching courses from the university's database -->
-            <div class="newCourseForm">
+            <details class="newCourseForm">
 
-                <h2 class="newCourseFormTitle">Search Course</h2>
+                <summary class="newCourseFormTitle">Search Course</summary>
 
-                <div class="courseFormSection">
-                    <div class="formItem">
-                        <p>Course Code</p>
-                        <input placeholder="MATE3031" class="courseSearchCode" type="text">
+                <form class="newCourseFormContent">
+                    <div class="courseFormSection">
+                        <div class="formItem">
+                            <p>Course Code</p>
+                            <input placeholder="MATE3031" class="courseSearchCode" type="text">
+                        </div>
                     </div>
-                </div>
-                
-                <div class="courseFormSection">
-                    <div class="formItem">
-                        <p>Course Name</p>
-                        <input placeholder="Calculus II" class="courseSearchName" type="text">
+                    
+                    <div class="courseFormSection">
+                        <div class="formItem">
+                            <p>Course Name</p>
+                            <input placeholder="Calculus II" class="courseSearchName" type="text">
+                        </div>
                     </div>
-                </div>
-                
-                <div class="courseFormSection">
-                    <div class="formItem">
-                        <p>Professor</p>
-                        <input placeholder="Robert Acar" class="courseSearchProfessor" type="text">
+                    
+                    <div class="courseFormSection">
+                        <div class="formItem">
+                            <p>Professor</p>
+                            <input placeholder="Robert Acar" class="courseSearchProfessor" type="text">
+                        </div>
                     </div>
-                </div>
-                
-                <div class="courseFormSection">
-                    <div class="formItem">
-                        <p>Term</p>
-                        <select class="courseSearchTerm">
-                            <option value="2">Fall Semester</option>
-                            <option value="3">Winter Semester</option>
-                            <option value="1">First Summer, 4 weeks</option>
-                            <option value="4">Second Summer, 4 weeks</option>
-                            <option value="5">Extended Summer, 6 weeks</option>
-                        </select>
+                    
+                    <div class="courseFormSection">
+                        <div class="formItem">
+                            <p>Term</p>
+                            <select class="courseSearchTerm">
+                                <option value="2">Fall Semester</option>
+                                <option value="3">Winter Semester</option>
+                                <option value="1">First Summer, 4 weeks</option>
+                                <option value="4">Second Summer, 4 weeks</option>
+                                <option value="5">Extended Summer, 6 weeks</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
+                </form>
                 
                 <div class="courseFormSection">
                     <div class="formItem">
@@ -76,48 +78,50 @@
                 </div>
 
                 <div class="searchCourse btn">Search Course</div>
-            </div>
+            </details>
 
             <!-- Adding a custom course -->
-            <div class="newCourseForm">
+            <details class="newCourseForm">
 
-                <h2 class="newCourseFormTitle">Add Course</h2>
+                <summary class="newCourseFormTitle">Add Course</summary>
 
-                <div class="courseFormSection">
-                    <div class="formItem">
-                        <p>Course Code</p>
-                        <input placeholder="MATE3031" required class="newCourseCode" type="text">
+                <form class="newCourseFormContent">
+                    <div class="courseFormSection">
+                        <div class="formItem">
+                            <p>Course Code</p>
+                            <input placeholder="MATE3031" required class="newCourseCode" type="text">
+                        </div>
                     </div>
-                </div>
-                
-                <div class="courseFormSection">
-                    <div class="formItem">
-                        <p>Name</p>
-                        <input placeholder="Calculus I" required class="newCourseName" type="text">
+                    
+                    <div class="courseFormSection">
+                        <div class="formItem">
+                            <p>Name</p>
+                            <input placeholder="Calculus I" required class="newCourseName" type="text">
+                        </div>
                     </div>
-                </div>
-                
-                <div class="courseFormSection">
-                    <div class="formItem">
-                        <p>Credits</p>
-                        <input placeholder="3" required class="newCourseCredits" type="number">
+                    
+                    <div class="courseFormSection">
+                        <div class="formItem">
+                            <p>Credits</p>
+                            <input placeholder="3" required class="newCourseCredits" type="number">
+                        </div>
                     </div>
-                </div>
-                <!-- <div class="courseFormSection">
-                    <div class="formItem">
-                        <p>Prerequisites</p>
-                        
-                    </div>
-                    <div class="formItem">
-                        <p>Corequisites</p>
-                        
-                    </div>
-                </div> -->
-                
-                <div class="addCourse btn">Add Course</div>
-                <label for="loadCoursesFileBtn" class="loadCourses btn">Load Courses</label>
-                <input id="loadCoursesFileBtn" type="file" accept=".json">
-            </div>
+                    <!-- <div class="courseFormSection">
+                        <div class="formItem">
+                            <p>Prerequisites</p>
+                            
+                        </div>
+                        <div class="formItem">
+                            <p>Corequisites</p>
+                            
+                        </div>
+                    </div> -->
+                    
+                    <div class="addCourse btn">Add Course</div>
+                    <label for="loadCoursesFileBtn" class="loadCourses btn">Load Courses</label>
+                    <input id="loadCoursesFileBtn" type="file" accept=".json">
+                </form>
+            </details>
         </div>
     </main>
     

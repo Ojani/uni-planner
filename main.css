@@ -108,9 +108,15 @@ body {
 }
 
 .newCourseFormTitle {
-    margin: 0 0 1em .3em;
+    margin: 0 0 0 .3em;
+    user-select: none;
+    cursor: pointer;
     font-size: 2em;
 
+}
+
+.newCourseFormContent {
+    margin-top: 1em;
 }
 
 .newCourseForm input {
