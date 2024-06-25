@@ -16,6 +16,22 @@ body {
     display: flex;
 }
 
+/* nav bar */
+
+.navBar {
+    /* border-bottom: 1px solid #172A46; */
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    user-select: none;
+    color: #172A46;
+    display: flex;
+    width: 100vw;
+    height: 7em;
+    left: 0;
+    top: 0;
+}
+
 .btn, .redbtn {
     background: var(--highlight);
     border-radius: .3em;
