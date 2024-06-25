@@ -3,7 +3,7 @@
 import searchCourses from './lib/courseSearch.js'
 
 // Adding the options for selecting the year in the course search form
-(() => {
+(async () => {
     const yearSelectorElement = document.querySelector(".courseSearchYear")
     const currentYear = new Date().getFullYear()
     const startYear = 2005
@@ -20,17 +20,76 @@ import searchCourses from './lib/courseSearch.js'
     yearSelectorElement.value = currentYear-1
 })();
 
-class Course {
-    constructor ({ courseCode, name, credits, taken=false, prereqs=[], coreqs=[] }) {
-        // courseCode = courseCode.replace(/\s/g, '').toUpperCase()
 
-        // this.discipline = courseCode.slice(0,4)
-        // this.number = courseCode.slice(4, 8)
+// SEARCHING FOR COURSES
+const searchCourseBtn = document.querySelector(".searchCourse");
+
+// Clicking on search button
+searchCourseBtn.addEventListener("click", () => {
+    // adding loading indicator
+    document.querySelector(".courseSearchResultsList").innerText = "loading..."
+
+    // getting inputs
+    const courseSearchProfessor = document.querySelector(".courseSearchProfessor").value;
+    const courseSearchCode = document.querySelector(".courseSearchCode").value;
+    const courseSearchTerm = document.querySelector(".courseSearchTerm").value;
+    const courseSearchYear = document.querySelector(".courseSearchYear").value;
+
+    searchForCourses({
+        PROFESSOR: courseSearchProfessor,
+        COURSE_CODE: courseSearchCode, 
+        TERM: courseSearchTerm,
+        YEAR: courseSearchYear
+     })
+})
+
+async function searchForCourses({ COURSE_CODE, TERM }) {
+    document.querySelector(".courseSearchResultsBackdrop").classList.remove("hidden");
+    const results = await searchCourses({ COURSE_CODE, TERM })
+
+    const resultListElement = document.querySelector(".courseSearchResultsList");
+    resultListElement.innerHTML = ""
+
+    // creating elements to put results on the list
+    var i = 0
+    for(let key in results) {
+        i++
+        const { courseCode, name, credits } = results[key]
+
+        const resultListItem = document.createElement("label");
+        resultListItem.className = "courseSearchResultsListItem"
+        resultListItem.innerHTML = 
+        `
+            <div>${courseCode}    ${credits}    ${name}</div>
+            <div><input type="checkbox" id="courseSearchCheckbox${i}"></div>
+        `
+
+        resultListElement.setAttribute("for", "courseSearchCheckbox"+i)
+        resultListElement.appendChild(resultListItem)
+    }
+
+    if(Object.keys(results).length == 0) resultListElement.innerHTML = "No courses were found..."
+}
+
+// Clicking off course search results
+const courseSearchResultsBackdrop = document.querySelector(".courseSearchResultsBackdrop")
+
+courseSearchResultsBackdrop.addEventListener("click" , (e) => {
+    e.target.classList.add("hidden")
+    e.stopPropagation()
+});
+
+document.querySelector(".exitCourseSearchResultsBtn").addEventListener("click", () => {
+    courseSearchResultsBackdrop.classList.add("hidden")
+});
+
+
+
+class Course {
+    constructor ({ courseCode, name, credits, taken=false }) {
         this.courseCode = courseCode
         
         this.credits = credits
-        this.prereqs = prereqs
-        this.coreqs = coreqs
         this.taken = taken
         this.name = name
     }
@@ -81,7 +140,7 @@ function updateSemesters() {
     wrapper.innerHTML = ""
 
     // When a course is added to a semester it is added here after adding the semester markup.
-    // This is where we check for prereqs.
+    // This is where we check for reqs.
     // When checking for coreq, we check here in case we already took them, otherwise we check
     // in the current list of courses being added to see if it's there since coreqs
     // can be taken at the same time as the class that required it
@@ -126,8 +185,6 @@ function updateSemesters() {
             <div class="courseCode">${courseCode}</div>
             <div class="courseName">${course.name}</div>
             <div class="courseCredits">${course.credits}</div>
-            <!-- <div class="coursePrereqs"></div>
-            <div class="courseCoreqs"></div> -->
             <div class="removeCourseFromSemester">Remove</div>
             `
 
@@ -200,12 +257,10 @@ function addCourse(inputs) {
         var courseCode = document.querySelector(".newCourseCode").value;
         var name = document.querySelector(".newCourseName").value;
         var credits = document.querySelector(".newCourseCredits").value;
-        var prereqs = []
-        var coreqs = []
     }
 
     document.querySelectorAll(".courseFormSection input").forEach(e => e.value = "");
-    const newCourse = new Course({ courseCode, name, credits, prereqs, coreqs })
+    const newCourse = new Course({ courseCode, name, credits })
 
     courses[courseCode] = newCourse
     updateCoursesStorage()
@@ -247,7 +302,7 @@ function updateCourses(courses) {
     concat(Object.keys(courses).filter(courseCode => takenCourses.has(courseCode) ))
 
     for(let courseCode of orderedCourses) {
-        const { discipline, number, name, credits, taken, prereqs, coreqs } = courses[courseCode]
+        const { discipline, number, name, credits, taken } = courses[courseCode]
 
         console.log("Updating courses")
 

@@ -36,21 +36,14 @@
                     <div class="courseFormSection">
                         <div class="formItem">
                             <p>Course Code</p>
-                            <input placeholder="MATE3031" class="courseSearchCode" type="text">
-                        </div>
-                    </div>
-                    
-                    <div class="courseFormSection">
-                        <div class="formItem">
-                            <p>Course Name</p>
-                            <input placeholder="Calculus II" class="courseSearchName" type="text">
+                            <input placeholder="MATE3031 (optional)" class="courseSearchCode" type="text">
                         </div>
                     </div>
                     
                     <div class="courseFormSection">
                         <div class="formItem">
                             <p>Professor</p>
-                            <input placeholder="Robert Acar" class="courseSearchProfessor" type="text">
+                            <input placeholder="Robert Acar (optional)" class="courseSearchProfessor" type="text">
                         </div>
                     </div>
                     
@@ -106,22 +99,29 @@
                             <input placeholder="3" required class="newCourseCredits" type="number">
                         </div>
                     </div>
-                    <!-- <div class="courseFormSection">
-                        <div class="formItem">
-                            <p>Prerequisites</p>
-                            
-                        </div>
-                        <div class="formItem">
-                            <p>Corequisites</p>
-                            
-                        </div>
-                    </div> -->
-                    
+
                     <div class="addCourse btn">Add Course</div>
                     <label for="loadCoursesFileBtn" class="loadCourses btn">Load Courses</label>
                     <input id="loadCoursesFileBtn" type="file" accept=".json">
                 </form>
             </details>
+
+            <!-- pop up for showing results after searching for courses -->
+            <div class="courseSearchResultsBackdrop hidden">
+                <!-- X button -->
+                <div class="courseSearchResults">
+                    <div class="exitCourseSearchResultsBtn">
+                        <div></div>
+                        <div></div>
+                    </div>
+                    
+                    <h2 class="courseSearchResultsTitle">Course Search</h2>
+
+                    <div class="courseSearchResultsList"></div>
+
+                    <div class="addCourses btn">Add Selected Courses</div>
+                </div>
+            </div>
         </div>
     </main>
     

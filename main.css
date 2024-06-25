@@ -112,7 +112,6 @@ body {
     user-select: none;
     cursor: pointer;
     font-size: 2em;
-
 }
 
 .newCourseFormContent {
@@ -147,6 +146,86 @@ body {
 
 #loadCoursesFileBtn {
     display: none;
+}
+
+/* Course search results popup */
+
+.courseSearchResultsBackdrop {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    transition: .4s;
+    height: 100vh;
+    width: 100vw;
+    left: 0;
+    top: 0;
+}
+
+.courseSearchResultsBackdrop.hidden {
+    pointer-events: none;
+    opacity: 0;
+}
+
+.courseSearchResults {
+    transform: translate(-50%, -50%);
+    background: white;
+    position: absolute;
+    padding: 2.5em 5em;
+    left: 50%;
+    top: 50%;
+}
+
+.exitCourseSearchResultsBtn {
+    position: relative;
+    left: -3em;
+}
+
+.courseSearchResultsTitle {
+    font-weight: normal;
+    margin: 1em 0 1em 0;
+    font-size: 2.5em;
+}
+
+.exitCourseSearchResultsBtn>div {
+    position: absolute;
+    background: black;
+    border-radius: 1em;
+    cursor: pointer;
+    height: .27em;
+    width: 2em;
+    left: 0;
+    top: 0;
+}
+
+.exitCourseSearchResultsBtn>div:first-child {
+    transform: rotate(45deg);
+}
+
+.exitCourseSearchResultsBtn>div:last-child {
+    transform: rotate(-45deg);
+}
+
+.courseSearchResultsList {
+    margin: 0 0 3em 0;
+    overflow-y: scroll;
+    font-size: 1.2em;
+    max-height: 50vh;
+}
+
+.courseSearchResultsListItem {
+    justify-content: space-between;
+    width: min(80vw, 900px);
+    white-space: pre;
+    cursor: pointer;
+    display: flex;
+    padding: 1em;
+}
+
+.courseSearchResultsListItem:nth-child(odd) {
+    background: #EFEFEF;
+}
+
+.courseSearchResultsListItem:hover {
+    background: #CFCFCF;
 }
 
 /* Course styles */
