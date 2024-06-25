@@ -188,6 +188,13 @@ function updateSemesters() {
 
         wrapper.appendChild(semesterElement)
 
+        if(semester % 2 == 0) {
+            const addSummerBtnElement = document.createElement("div");
+            addSummerBtnElement.className = "addSummerBtn"
+            addSummerBtnElement.innerText = "Add Summer"
+            wrapper.appendChild(addSummerBtnElement)
+        }
+
         var totalCredits = 0
 
         for(let courseCode of semesters[i]) {
@@ -226,7 +233,7 @@ function updateSemesters() {
             semesterElement.querySelector(".coursesInSemester").innerHTML = 
             `
             <div class="coursesPlaceHolder">
-                <p>Drag and drop courses into the semseter to add them</P
+                <p>Drag and drop courses into the semseter to add them</p>
             </div>
             `
         }

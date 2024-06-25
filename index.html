@@ -24,24 +24,27 @@
         
         <div class="courses">
             <h2 class="sectionTitle">Courses</h2>
-            <div class="availableCourses"></div>
-
+            
             <div class="coursesInformation">
                 <div class="coursesTaken">Courses Taken: <span class="takenCoursesAmount"></span>/<span class="totalCoursesAmount"></span></div>
                 <div class="creditsTaken">Credits Taken: <span class="takenCreditsAmount"></span>/<span class="totalCreditsAmount"></span></div>
             </div>
 
             <!-- Searching courses from the university's database -->
-            <div class="forms">
-                <details class="newCourseForm">
+            <div class="formsAndCourses">
+                <details class="availableCoursesWrapper">
+                    <summary class="courseListTitle">Available Courses</summary>
+                    <div class="availableCourses"></div>
+                </details>
 
+                <details class="newCourseForm">
                     <summary class="newCourseFormTitle">Search Course</summary>
 
                     <form class="newCourseFormContent">
                         <div class="courseFormSection">
                             <div class="formItem">
                                 <p>Course Code</p>
-                                <input placeholder="MATE3031 (optional)" class="courseSearchCode" type="text">
+                                <input required placeholder="MATE3031 or MATE" class="courseSearchCode" type="text">
                             </div>
                         </div>
                         
@@ -106,11 +109,13 @@
                         </div>
 
                         <div class="addCourse btn">Add Course</div>
-                        <label for="loadCoursesFileBtn" class="loadCourses btn">Load Courses</label>
-                        <input id="loadCoursesFileBtn" type="file" accept=".json">
                     </form>
                 </details>
+
             </div>
+            
+            <label for="loadCoursesFileBtn" class="loadCourses btn">Load Courses</label>
+            <input id="loadCoursesFileBtn" type="file" accept=".json">
 
             <!-- pop up for showing results after searching for courses -->
             <div class="courseSearchResultsBackdrop hidden">

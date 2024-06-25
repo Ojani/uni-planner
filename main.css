@@ -19,7 +19,6 @@ body {
 /* nav bar */
 
 .navBar {
-    /* border-bottom: 1px solid #172A46; */
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -81,10 +80,14 @@ body {
     pointer-events: none;
 }
 
-.availableCourses {
+.availableCoursesWrapper {
     overflow-y: scroll;
     max-height: 50vh;
     width: 30vw;
+}
+
+.availableCourses {
+    margin-top: 1em;
 }
 
 .course:nth-child(even) {
@@ -102,6 +105,10 @@ body {
     color: #CCC;
 }
 
+.totalCredits {
+    margin-top: .5em;
+}
+
 .coursesInformation {
     justify-content: space-between;
     font-weight: bold;
@@ -110,12 +117,35 @@ body {
     color: #CCC;
 }
 
+.addSummerBtn {
+    border-radius: .75em;
+    text-align: center;
+    user-select: none;
+    transition: .2s;
+    cursor: pointer;
+    color: #CCC;
+
+}
+
+.addSummerBtn:hover {
+    background: #10233F;
+}
+
+.addSummerBtn::before, .addSummerBtn::after {
+    margin: 0 1em .25em 1em;
+    display: inline-block;
+    background: #CCC;
+    height: 2px;
+    content: "";
+    width: 35%;
+}
+
 /* Course form */
 
-.forms {
+.formsAndCourses {
     border-radius: .75em;
     overflow-y: scroll;
-    max-height: 70vh;
+    max-height: 63vh;
 }
 
 .courseFormSection {
@@ -128,14 +158,14 @@ body {
     width: 100%;
 }
 
-.newCourseForm {
+.newCourseForm, .availableCoursesWrapper {
     border-radius: .75em;
     background: #172A46;
     margin-top: 1em;
     padding: 1em;
 }
 
-.newCourseFormTitle {
+.newCourseFormTitle, .courseListTitle {
     margin: 0 0 0 .3em;
     user-select: none;
     cursor: pointer;
@@ -189,7 +219,7 @@ body {
 /* Course search results popup */
 
 .courseSearchResultsBackdrop {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.6);
     position: fixed;
     transition: .4s;
     height: 100vh;
@@ -272,32 +302,17 @@ body {
 
 .courseWrapper {
     justify-content: space-evenly;
-    border-top: 1px solid #777;
-    display: flex;
-    padding: 2px;
-}
-
-.courseWrapper:hover + .courseWrapper {
-    border-top: none; 
-}
-
-.courseWrapper:first-child {
-    border-top: none;
-}
-
-.courseWrapper {
+    border: 2px solid #061935;
+    border-radius: .75em;
     cursor: grabbing;
+    overflow: hidden;
+    margin: .25em 0;
+    display: flex;
 }
 
-/* the paddinf being changed to 1px for hovered elements and to 0.5px for hovered elements at the
-start or end of the list is done to prevent the resizing of the elements due to the thicker border */
 .courseWrapper:hover  {
-    border: 2px dashed black;
-    padding: 1px;
-}
-
-.courseWrapper:hover:first-child, .courseWrapper:hover:last-child  {
-    padding: 0.5px;
+    border: 2px dashed #CCC;
+    padding: 0;
 }
 
 .courseWrapper div {
@@ -305,8 +320,12 @@ start or end of the list is done to prevent the resizing of the elements due to 
     width: 100%;
 }
 
+.courseName {
+    min-width: 15em;
+}
+
 .courseCode, .courseCredits {
-    background: #EFEFEF;
+    background: #061935;
 }
 
 .crossed {
