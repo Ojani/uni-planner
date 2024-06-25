@@ -60,7 +60,7 @@ async function searchForCourses({ COURSE_CODE, TERM }) {
         resultListItem.className = "courseSearchResultsListItem"
         resultListItem.innerHTML = 
         `
-            <div>${courseCode}    ${credits}    ${name}</div>
+            <div><span class="searchListCode">${courseCode}</span>    <span class="searchListCredits">${credits}</span>    <span class="searchListName">${name}</span></div>
             <div><input type="checkbox" id="courseSearchCheckbox${i}"></div>
         `
 
@@ -83,6 +83,22 @@ document.querySelector(".exitCourseSearchResultsBtn").addEventListener("click", 
     courseSearchResultsBackdrop.classList.add("hidden")
 });
 
+// Adding selected courses
+const addCoursesBtn = document.querySelector(".addCourses");
+addCoursesBtn.addEventListener("click", () => {
+    const selected = Array.from(document.querySelectorAll(".courseSearchResultsListItem input:checked"));
+
+    for(let elem of selected) {
+        const parent = elem.parentElement.parentElement
+
+        const credits = parent.querySelector(".searchListCredits").innerText
+        const code = parent.querySelector(".searchListCode").innerText
+        const name = parent.querySelector(".searchListName").innerText
+
+        addCourse([code, credits, name])
+        courseSearchResultsBackdrop.classList.add("hidden")
+    }
+})
 
 
 class Course {
