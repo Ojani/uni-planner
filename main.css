@@ -316,6 +316,8 @@ body {
 }
 
 .courseWrapper div {
+    align-items: center;
+    display: flex;
     padding: 1em;
     width: 100%;
 }
@@ -328,7 +330,11 @@ body {
     background: #061935;
 }
 
+.courseCredits {
+    justify-content: center;
+}
+
 .crossed {
-    text-decoration: line-through;
     cursor: not-allowed;
+    opacity: .45;
 }
