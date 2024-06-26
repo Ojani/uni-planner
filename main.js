@@ -121,6 +121,7 @@ const takenCourses = new Set()
 
 function updateSemestersStorage() {
     localStorage.setItem("semesters", JSON.stringify(semesters))
+    localStorage.setItem("summers", JSON.stringify(summers))
 }
 
 function updateCoursesStorage() {
@@ -128,9 +129,12 @@ function updateCoursesStorage() {
 }
 
 function getSemestersFromStorage() {
-    const result = JSON.parse(localStorage.getItem("semesters")) || [[],[],[],[],[],[],[],[]]
-    updateSemesters(result)
-    semesters = result
+    const semesterStorage = JSON.parse(localStorage.getItem("semesters")) || [[],[],[],[],[],[],[],[]]
+    const summerStorage = JSON.parse(localStorage.getItem("summers")) || []
+    semesters = semesterStorage
+    summers = summerStorage
+    
+    updateSemesters()
 }
 
 function getCoursesFromStorage() {
