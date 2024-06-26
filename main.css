@@ -76,6 +76,22 @@ body {
     padding: 1em 1em .2em 1em;
 }
 
+.summer {
+    background: transparent;
+    outline: .25em dashed #172A46;
+    outline-offset: -.25em;
+}
+
+.removeSummer {
+    background: transparent;
+    outline: .12em dashed #e84550;
+}
+
+.removeSummer:hover {
+    background: transparent;
+    color: #e84550;
+}
+
 .semester.disabled {
     pointer-events: none;
 }
@@ -128,13 +144,13 @@ body {
 }
 
 .addSummerBtn:hover {
-    background: #10233F;
+    color: var(--highlight);
 }
 
 .addSummerBtn::before, .addSummerBtn::after {
+    background: currentColor;
     margin: 0 1em .25em 1em;
     display: inline-block;
-    background: #CCC;
     height: 2px;
     content: "";
     width: 35%;
@@ -322,6 +338,10 @@ body {
     width: 100%;
 }
 
+.courseCode {
+    max-width: 10em;
+}
+
 .courseName {
     min-width: 15em;
 }
@@ -337,4 +357,13 @@ body {
 .crossed {
     cursor: not-allowed;
     opacity: .45;
+}
+
+/* course list items for summer the courses list */
+.summer .courseCode, .summer .courseCredits {
+    background: #172A46;
+}
+
+.summer .courseWrapper {
+    border-color: #172A46;
 }
