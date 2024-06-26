@@ -315,7 +315,7 @@ function addCourseToSemester(semesterIndex, courseCode) {
 }
 
 function removeSemester(semesterIndex) {
-    for(courseCode of semesters[semesterIndex]) {
+    for(let courseCode of semesters[semesterIndex]) {
        takenCourses.delete(courseCode)
     }
     semesters.splice(semesterIndex, 1)
