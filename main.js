@@ -150,8 +150,8 @@ function addSemester() {
     updateSemesters()
 }
 
-function addSummer(year) {
-    summers[year-1] = []
+function addSummer(summerIndex) {
+    summers[summerIndex] = []
     updateSemesters()
 }
 
@@ -171,6 +171,7 @@ function updateSemesters() {
     for(let i = 0; i < semesters.length; i++) {
         const year = Math.floor(i / 2) + 1
         const semester = i % 2 + 1
+        const summerIndex = year-1
 
         const markup = 
         `
@@ -198,13 +199,13 @@ function updateSemesters() {
         // after every winter semester
         if(semester % 2 == 0) {
             // adding summer section
-            if(summers.length >= year && summers[year-1] != null) {
+            if(summers.length >= year && summers[summerIndex] != null) {
                 const summerElement = document.createElement("div");
                 summerElement.className = "semester summer summer"+year
 
                 // Choosing the postfix for the summer number (1st, 2nd, 3rd, 4th, etc.)
                 const postfixes = ['st', 'nd', 'rd']
-                const postFix = year > postfixes.length? "th" : postfixes[year-1]
+                const postFix = year > postfixes.length? "th" : postfixes[summerIndex]
 
                 summerElement.innerHTML += 
                 `
@@ -215,30 +216,40 @@ function updateSemesters() {
                 `
 
                 summerElement.addEventListener("dragover", allowCourseDrop)
-                summerElement.addEventListener("drop", e => droppingCourseOnSummer(e, year))
+                summerElement.addEventListener("drop", e => droppingCourseOnSummer(e, summerIndex))
                 summerElement.querySelector(".removeSummer")
-                .addEventListener("click", () => removeSummer(year))
+                .addEventListener("click", () => removeSummer(summerIndex))
 
                 wrapper.appendChild(summerElement)
 
                 var totalSummerCredits = 0
                 // adding course list items
-                for(let courseCode of summers[year-1]) {
+                for(let courseCode of summers[summerIndex]) {
                     // creating course list item and appending it to the list of courses for the semester
                     const course = courses[courseCode]
                     const courseListItemElement = createCourseListItemElement(course)
                     summerElement.querySelector(".coursesInSemester")
                     .appendChild(courseListItemElement);
                     
-                    courseListItemElement.addEventListener("dragstart", e => draggingCourse(e, i))
-                    courseListItemElement.addEventListener("dragend", e => droppedCourseFromAnother(e, i))
+                    courseListItemElement.addEventListener("dragstart", e => draggingCourse(e, true))
+                    courseListItemElement.addEventListener("dragend", e => droppedCourseFromSummer(e, summerIndex))
                     courseListItemElement.querySelector(".removeCourseFromSemester")
-                    .addEventListener("click", () => removeCourseFromSummer(year, course.courseCode))
+                    .addEventListener("click", () => removeCourseFromSummer(summerIndex, course.courseCode))
         
                     takenCourses.add(courseCode)
                     totalSummerCredits += Number(course.credits)
                 }
                 summerElement.querySelector(".credits").innerText = totalSummerCredits
+
+                // Adding text to tell user to drag and drop into semesters/summers if there are no classes in it
+                if(summers[summerIndex].length == 0) {
+                    summerElement.querySelector(".coursesInSemester").innerHTML = 
+                    `
+                    <div class="coursesPlaceHolder">
+                        <p>Drag and drop courses into the summer to add them</p>
+                    </div>
+                    `
+                }
             }
             // adding button to add summer section
             else {
@@ -247,7 +258,7 @@ function updateSemesters() {
                 addSummerBtnElement.innerText = "Add Summer"
                 wrapper.appendChild(addSummerBtnElement)
 
-                addSummerBtnElement.addEventListener("click", () => addSummer(year));
+                addSummerBtnElement.addEventListener("click", () => addSummer(summerIndex));
             }
         }
 
@@ -261,8 +272,8 @@ function updateSemesters() {
             semesterElement.querySelector(".coursesInSemester")
             .appendChild(courseListItemElement);
             
-            courseListItemElement.addEventListener("dragstart", e => draggingCourse(e, i))
-            courseListItemElement.addEventListener("dragend", e => droppedCourseFromAnother(e, i))
+            courseListItemElement.addEventListener("dragstart", e => draggingCourse(e, true))
+            courseListItemElement.addEventListener("dragend", e => droppedCourseFromSemester(e, i))
             courseListItemElement.querySelector(".removeCourseFromSemester")
             .addEventListener("click", () => removeCourseFromSemester(i, course.courseCode))
 
@@ -272,7 +283,7 @@ function updateSemesters() {
 
         semesterElement.querySelector(".credits").innerText = totalCredits
 
-        // Adding text to tell user to drag and drop semesters if there are no classes in it
+        // Adding text to tell user to drag and drop into semesters/summers if there are no classes in it
         if(semesters[i].length == 0) {
             semesterElement.querySelector(".coursesInSemester").innerHTML = 
             `
@@ -331,16 +342,17 @@ function removeCourseFromSemester(semesterIndex, courseCode) {
 // editing summers
 function addCourseToSummer(summerIndex, courseCode) {
     if(takenCourses.has(courseCode)) return
+    console.log(summerIndex)
     summers[summerIndex].push(courseCode)
     updateSemesters()
 }
 
-function removeSummer(year) {
-    for(let courseCode of summers[year-1]) {
+function removeSummer(summerIndex) {
+    for(let courseCode of summers[summerIndex]) {
        takenCourses.delete(courseCode)
     }
     // removing summer section from the array
-    summers[year-1] = null
+    summers[summerIndex] = null
     
     // truncating list of summers to remove trailing null summers
     while(summers.length > 0 && summers[summers.length-1] == null) {
@@ -350,8 +362,8 @@ function removeSummer(year) {
     updateSemesters()
 }
 
-function removeCourseFromSummer(year, courseCode) {
-    summers[year-1] = summers[year-1].filter(code => code != courseCode)
+function removeCourseFromSummer(summerIndex, courseCode) {
+    summers[summerIndex] = summers[summerIndex].filter(code => code != courseCode)
     takenCourses.delete(courseCode)
     updateSemesters()
 }
@@ -473,18 +485,14 @@ fileUploadBtn.onchange = () => {
 }
 
 //  Setting funtionality to add a course to a semester via drag and drop
-function draggingCourse(ev, draggedFromSemesterIndex=-1) {
+function draggingCourse(ev, isDraggedFromSemester=false) {
     ev.dataTransfer.clearData()
     
     const courseCode = ev.target.id
     
-    // This allowing the course to be dragged from one semester to another
-    // while preventing having the same course being dragged on more than one 
-    // semester from the course list
-    if(draggedFromSemesterIndex != -1) {
+    // This allows the course to be dragged from one semester to another
+    if(isDraggedFromSemester) {
         takenCourses.delete(courseCode)
-        // preventing course from being dropped in the semester it was take out of
-        document.querySelector(".semester"+draggedFromSemesterIndex).classList.add("disabled");
     }
     ev.dataTransfer.setData("text/plain", courseCode)
 }
@@ -501,27 +509,40 @@ function droppingCourseOnSemester(ev, semesterIndex) {
     addCourseToSemester(semesterIndex, courseCode)
 }
 
-function droppingCourseOnSummer(ev, year) {
+function droppingCourseOnSummer(ev, summerIndex) {
     ev.preventDefault()
     ev.stopPropagation()
 
     const courseCode = ev.dataTransfer.getData("text/plain")
-    addCourseToSummer(year-1, courseCode)
+
+    // preventing errors when dragging and dropping other things that are not valid
+    if(!courseCode || !courses[courseCode]) return
+
+    addCourseToSummer(summerIndex, courseCode)
 }
 
-function droppedCourseFromAnother(ev, semesterIndex) {
-    const courseCode = ev.dataTransfer.getData("text/plain")
+function droppedCourseFromSemester(ev, semesterIndex) {
+    const courseCode = ev.target.id
 
-    document.querySelector(".semester"+semesterIndex).classList.remove("disabled");
+    // removing course from the semester
+    removeCourseFromSemester(semesterIndex, courseCode)
 
-    // only removing course from the semester if it got dropped on another one
-    if(takenCourses.has(courseCode)) {
-        removeCourseFromSemester(semesterIndex, courseCode)
-    } 
-    // otherwise, adding it back into the taken courses set because it remained in this semester 
-    // and wont be readded into the set automatically since it wasn't dropped on another semester
-    else{
-        takenCourses.add(courseCode)
+    // adding the course back to the semester if it was not dropped on another semester/summer
+    if(!takenCourses.has(courseCode)) {
+        addCourseToSemester(semesterIndex, courseCode)
+    }
+}
+
+function droppedCourseFromSummer(ev, summerIndex) {
+    const courseCode = ev.target.id
+
+    // removing course from the summer
+    removeCourseFromSummer(summerIndex, courseCode)
+
+    // adding the course back to the summer if it was not dropped on another semester/summer
+    if(!takenCourses.has(courseCode)) {
+        console.log(summerIndex);
+        addCourseToSummer(summerIndex, courseCode)
     }
 }
 

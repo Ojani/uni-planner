@@ -92,10 +92,6 @@ body {
     color: #e84550;
 }
 
-.semester.disabled {
-    pointer-events: none;
-}
-
 .availableCoursesWrapper {
     overflow-y: scroll;
     max-height: 50vh;
@@ -326,11 +322,6 @@ body {
     display: flex;
 }
 
-.courseWrapper:hover  {
-    border: 2px dashed #CCC;
-    padding: 0;
-}
-
 .courseWrapper div {
     align-items: center;
     display: flex;
@@ -366,4 +357,9 @@ body {
 
 .summer .courseWrapper {
     border-color: #172A46;
+}
+
+.courseWrapper:hover  {
+    border: 2px dashed #CCC;
+    padding: 0;
 }
