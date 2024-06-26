@@ -165,13 +165,6 @@ function updateSemesters() {
     
     wrapper.innerHTML = ""
 
-    // When a course is added to a semester it is added here after adding the semester markup.
-    // This is where we check for reqs.
-    // When checking for coreq, we check here in case we already took them, otherwise we check
-    // in the current list of courses being added to see if it's there since coreqs
-    // can be taken at the same time as the class that required it
-    const coursesTaken = new Set()
-
     for(let i = 0; i < semesters.length; i++) {
         const year = Math.floor(i / 2) + 1
         const semester = i % 2 + 1
@@ -465,29 +458,6 @@ function updateCourses(courses) {
     document.querySelector(".takenCreditsAmount").innerText = totalCreditsAmt - creditsNotTakenAmt
 }
 
-// Loading courses from JSON file
-// format is a list of semesters, each semester a list which contains the course code, credits, and name.
-// example: [['INSO 4151', '3', 'Software Engineering Project I']]
-
-// detecting when a file has been uploaded
-const fileUploadBtn = document.querySelector("#loadCoursesFileBtn")
-fileUploadBtn.onchange = () => {
-    if(fileUploadBtn.files.length == 0) return
-
-    const reader = new FileReader()
-    reader.onload = (e) => {
-        const semesters = JSON.parse(e.target.result)
-        
-        for(semester of semesters) {
-            for(course of semester) {
-                addCourse(course)
-            }
-        }
-    }
-
-    reader.readAsText(fileUploadBtn.files[0]);
-}
-
 //  Setting funtionality to add a course to a semester via drag and drop
 function draggingCourse(ev, isDraggedFromSemester=false) {
     ev.dataTransfer.clearData()
@@ -553,3 +523,69 @@ function droppedCourseFromSummer(ev, summerIndex) {
 function allowCourseDrop(ev) {
     ev.preventDefault()
 }
+
+
+
+
+// loading and exporting save files
+const coursePlannerSaveFileVersion = 1
+
+// the save file is just a single json string with the following format
+// {
+//      isCoursePlannerSaveFile: boolean value. it checks that this exists and is set to true to make sure it is a valid save file
+//      coursePlannerSaveFileVersion: integer. used to convert old save file formats into new ones in case the format changes
+//      semesters: contains the array of semesters
+//      summers: contains the array of summers
+//      courses: contains the object of courses
+// }
+
+// loading/reading save files
+// detecting when a file has been uploaded
+const fileUploadBtn = document.querySelector("#loadSaveFileBtn")
+fileUploadBtn.addEventListener("change", () => {
+    if(fileUploadBtn.files.length == 0) return
+
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        try {
+            const saveObject = JSON.parse(e.target.result)
+            
+            if(saveObject.isCoursePlannerSaveFile && saveObject.coursePlannerSaveFileVersion == coursePlannerSaveFileVersion) {
+                localStorage.setItem("semesters", JSON.stringify(saveObject.semesters))
+                localStorage.setItem("summers", JSON.stringify(saveObject.summers))
+                localStorage.setItem("courses", JSON.stringify(saveObject.courses))
+                
+                getCoursesFromStorage()
+                getSemestersFromStorage()
+            }
+        }
+        catch(error) {
+            alert("invalid save file")  
+        }
+    }
+
+    reader.readAsText(fileUploadBtn.files[0]);
+})
+
+// exporting save files
+document.querySelector(".exportSaveFile").addEventListener("click", () => {
+    // creating save object that will be parsed into a json string
+    const saveObject = {
+        isCoursePlannerSaveFile: true,
+        coursePlannerSaveFileVersion,
+        semesters,
+        summers,
+        courses
+    }
+
+    const stringifiedSaveObject = JSON.stringify(saveObject) 
+
+    const blob = new Blob([stringifiedSaveObject], { type: "application/json" });
+    const blobURL = URL.createObjectURL(blob)
+
+    // downloading the file
+    var link = document.createElement("a");
+    link.download = "course-planner-save-file.json";
+    link.href = blobURL;
+    link.click()
+});
