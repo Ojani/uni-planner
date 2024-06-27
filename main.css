@@ -72,6 +72,10 @@ body {
     margin: 1em 0;
 }
 
+.semester h2 {
+    margin-top: .5em;
+}
+
 .availableSemesters {
     border-radius: .75em;
     overflow-y: scroll;
@@ -315,10 +319,15 @@ body {
 .courseSearchResultsListItem {
     justify-content: space-between;
     width: min(80vw, 900px);
+    align-items: baseline;
     white-space: pre;
     cursor: pointer;
     display: flex;
     padding: 1em;
+}
+
+.courseSearchResultsListItem>div {
+    overflow: hidden;
 }
 
 .courseSearchResultsListItem:nth-child(odd) {
@@ -451,6 +460,29 @@ body {
     .saveFileSection {
         margin-bottom: 0;
     }
+
+    .courseSearchResultsList {
+        font-size: .95em;
+    }
+
+    .courseSearchResultsTitle {
+        font-size: 2em;
+    }
+
+    .courseSearchResults {
+        padding: 1em;
+    }
+
+    .courseSearchResultsListItem {
+        width: 80vw;
+    }
+
+    .exitCourseSearchResultsBtn>div {
+        font-size: .75em;
+        left: initial;
+        right: -4em;
+        top: 1em;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -460,6 +492,14 @@ body {
     
     .semester h2 {
         font-size: 1.25em;
+    }
+
+    .courseSearchResultsList {
+        font-size: .85em;
+    }
+
+    .courseSearchResultsTitle {
+        font-size: 1.75em;
     }
 }
 
@@ -479,10 +519,26 @@ body {
     .btn, .redbtn {
         font-size: .85em;
     }
+
+    .courseSearchResultsList {
+        font-size: .75em;
+    }
+
+    .courseSearchResultsTitle {
+        font-size: 1.5em;
+    }
 }
 
 @media only screen and (max-width: 400px) {
     .courseWrapper {
         font-size: .7em;
+    }
+
+    .courseSearchResultsList {
+        font-size: .7em;
+    }
+
+    .courseSearchResultsTitle {
+        font-size: 1.2em;
     }
 }
