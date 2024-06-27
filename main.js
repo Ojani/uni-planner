@@ -252,7 +252,7 @@ function updateSemesters() {
             else {
                 const addSummerBtnElement = document.createElement("div");
                 addSummerBtnElement.className = "addSummerBtn"
-                addSummerBtnElement.innerText = "Add Summer"
+                addSummerBtnElement.innerHTML = "<div></div><p>Add Summer</p><div></div>"
                 wrapper.appendChild(addSummerBtnElement)
 
                 addSummerBtnElement.addEventListener("click", () => addSummer(summerIndex));

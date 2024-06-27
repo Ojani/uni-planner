@@ -63,18 +63,20 @@ body {
 
 /* Semester styles */
 
+.semester {
+    padding: 1em 1em .2em 1em;
+    width: max(30vw, 500px);
+    box-sizing: border-box;
+    background: #172A46;
+    border-radius: .75em;
+    margin: 1em 0;
+}
+
 .availableSemesters {
     border-radius: .75em;
     overflow-y: scroll;
     max-height: 65vh;
-    width: 30vw;
-}
-
-.semester {
-    border-radius: .75em;
-    background: #172A46;
-    margin: 1em 0;
-    padding: 1em 1em .2em 1em;
+    width: 100%;
 }
 
 .summer {
@@ -93,10 +95,14 @@ body {
     color: var(--red);
 }
 
+.courses {
+    width: max(31.8vw, 500px);
+    box-sizing: border-box;
+}
+
 .availableCoursesWrapper {
     overflow-y: scroll;
     max-height: 50vh;
-    width: 30vw;
 }
 
 .availableCourses {
@@ -131,26 +137,31 @@ body {
 }
 
 .addSummerBtn {
-    border-radius: .75em;
+    justify-content: space-around;
+    align-items: center;
     text-align: center;
     user-select: none;
     transition: .2s;
     cursor: pointer;
+    display: flex;
     color: #CCC;
-
 }
 
 .addSummerBtn:hover {
     color: var(--highlight);
 }
 
-.addSummerBtn::before, .addSummerBtn::after {
+.addSummerBtn p {
+    white-space: nowrap;
+    margin: 0;
+}
+
+.addSummerBtn div {
     background: currentColor;
-    margin: 0 1em .25em 1em;
-    display: inline-block;
+    margin: 0 1em;
     height: 2px;
     content: "";
-    width: 35%;
+    width: 100%;
 }
 
 /* Course form */
@@ -381,4 +392,69 @@ body {
 .courseWrapper:hover  {
     border: 2px dashed #CCC;
     padding: 0;
+}
+
+
+/* responsive media queries */
+@media only screen and (max-width: 1200px) {
+    .semester, .courses {
+        width: 45vw;
+    }
+}
+
+@media only screen and (max-width: 1145px) {
+    body {
+        font-size: .85em;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    body {
+        font-size: .8em;
+    }
+
+    .main {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 3em;
+    }
+
+    .semester, .courses {
+        width: 90vw;
+    }
+
+    .semester:first-child {
+        margin-top: 0;
+    }
+
+    .availableSemesters {
+        max-height: 35vh;
+        margin-top: 1em;
+    }
+
+    .availableCoursesWrapper {
+        max-height: 15vh;
+    }
+
+    .formsAndCourses {
+        max-height: 38vh;
+    }
+
+    .navBar {
+        height: 4em;
+    }
+
+    .sectionTitle {
+        display: none;
+    }
+
+    /* .availableSemesters {
+        overflow-x: scroll;
+        display: flex;
+        width: 90vw;
+    } */
+
+    /* .semester {
+        flex: 1 400px 0;
+    } */
 }
