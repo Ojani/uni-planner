@@ -1,6 +1,7 @@
 :root {
     --highlight: #0f9657;
     --highlight-dark: #0b7343;
+    --red: #e84550;
 }
 
 body {
@@ -84,12 +85,12 @@ body {
 
 .removeSummer {
     background: transparent;
-    outline: .12em dashed #e84550;
+    outline: .12em dashed var(--red);
 }
 
 .removeSummer:hover {
     background: transparent;
-    color: #e84550;
+    color: var(--red);
 }
 
 .availableCoursesWrapper {
@@ -333,15 +334,15 @@ body {
     align-items: center;
     display: flex;
     padding: 1em;
-    width: 100%;
 }
 
 .courseCode {
-    max-width: 10em;
+    overflow: hidden;
+    flex: 2;
 }
 
 .courseName {
-    min-width: 15em;
+    flex: 7;
 }
 
 .courseCode, .courseCredits {
@@ -350,6 +351,17 @@ body {
 
 .courseCredits {
     justify-content: center;
+    flex: 0.75;
+}
+
+.removeCourseFromSemester, .removeCourseFromList {
+    justify-content: center;
+    flex: 1.75;
+}
+
+.courseWrapper:has(div:nth-child(4):hover) {
+    border-color: var(--red);
+    cursor: pointer;
 }
 
 .crossed {
