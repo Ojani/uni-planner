@@ -460,8 +460,6 @@ function updateCourses(courses) {
 
 //  Setting funtionality to add a course to a semester via drag and drop
 function draggingCourse(ev, isDraggedFromSemester=false) {
-    ev.dataTransfer.clearData()
-    
     const courseCode = ev.target.id
     
     // This allows the course to be dragged from one semester to another
