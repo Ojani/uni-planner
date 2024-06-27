@@ -332,12 +332,12 @@ body {
 
 .courseWrapper div {
     align-items: center;
+    overflow: hidden;
     display: flex;
     padding: 1em;
 }
 
 .courseCode {
-    overflow: hidden;
     flex: 2;
 }
 
