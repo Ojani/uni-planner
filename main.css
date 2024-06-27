@@ -433,11 +433,11 @@ body {
     }
 
     .availableCoursesWrapper {
-        max-height: 15vh;
+        max-height: 22vh;
     }
 
     .formsAndCourses {
-        max-height: 38vh;
+        max-height: 30vh;
     }
 
     .navBar {
@@ -448,13 +448,41 @@ body {
         display: none;
     }
 
-    /* .availableSemesters {
-        overflow-x: scroll;
-        display: flex;
-        width: 90vw;
-    } */
+    .saveFileSection {
+        margin-bottom: 0;
+    }
+}
 
-    /* .semester {
-        flex: 1 400px 0;
-    } */
+@media only screen and (max-width: 600px) {
+    .newCourseFormTitle, .courseListTitle {
+        font-size: 1.5em;
+    }
+    
+    .semester h2 {
+        font-size: 1.25em;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .courseWrapper {
+        font-size: .85em;
+    }
+
+    .newCourseFormTitle, .courseListTitle {
+        font-size: 1.25em;
+    }
+    
+    .semester h2 {
+        font-size: 1em;
+    }
+
+    .btn, .redbtn {
+        font-size: .85em;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .courseWrapper {
+        font-size: .7em;
+    }
 }
