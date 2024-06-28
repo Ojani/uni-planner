@@ -419,7 +419,7 @@ body {
 
 @media only screen and (max-width: 990px) {
     body {
-        font-size: .8em;
+        font-size: .75em;
     }
 
     .main {
@@ -437,7 +437,7 @@ body {
     }
 
     .availableSemesters {
-        max-height: 35vh;
+        max-height: 40vh;
         margin-top: 1em;
     }
 
@@ -482,6 +482,10 @@ body {
         left: initial;
         right: -4em;
         top: 1em;
+    }
+
+    .courses, .semester {
+        width: 95vw;
     }
 }
 
