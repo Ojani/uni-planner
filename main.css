@@ -65,7 +65,7 @@ body {
 
 .semester {
     padding: 1em 1em .2em 1em;
-    width: max(30vw, 500px);
+    width: max(35vw, 500px);
     box-sizing: border-box;
     background: #172A46;
     border-radius: .75em;
@@ -278,6 +278,18 @@ body {
     top: 50%;
 }
 
+.courseSearchLoading {
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    display: flex;
+    gap: .5em;
+}
+
+.courseSearchLoading .loader {
+    font-size: .4em;
+}
+
 .exitCourseSearchResultsBtn {
     position: relative;
     left: -3em;
@@ -309,6 +321,7 @@ body {
 }
 
 .courseSearchResultsList {
+    width: min(80vw, 900px);
     border-radius: .75em;
     overflow-y: scroll;
     margin: 0 0 3em 0;
@@ -318,7 +331,6 @@ body {
 
 .courseSearchResultsListItem {
     justify-content: space-between;
-    width: min(80vw, 900px);
     align-items: baseline;
     white-space: pre;
     cursor: pointer;
@@ -404,6 +416,24 @@ body {
 }
 
 
+/* loading animation */
+.loader {
+    border: .5em solid #084e2e;
+    border-top-color: var(--highlight);
+    box-sizing: border-box;
+    border-radius: 5em;
+    height: .25em;
+    padding: 1em;
+    width: .25em;
+
+    animation: spin .75s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* responsive media queries */
 @media only screen and (max-width: 1200px) {
     .semester, .courses {
@@ -467,14 +497,15 @@ body {
 
     .courseSearchResultsTitle {
         font-size: 2em;
+        margin-top: 0;
     }
 
     .courseSearchResults {
         padding: 1em;
     }
 
-    .courseSearchResultsListItem {
-        width: 80vw;
+    .courseSearchResultsList {
+        width: 85vw;
     }
 
     .exitCourseSearchResultsBtn>div {
@@ -487,15 +518,20 @@ body {
     .courses, .semester {
         width: 95vw;
     }
+
+    .courseName {
+        overflow: scroll;
+        /* text-wrap: nowrap; */
+    }
+
+    .semester h2 {
+        font-size: 1.125em;
+    }
 }
 
 @media only screen and (max-width: 600px) {
     .newCourseFormTitle, .courseListTitle {
         font-size: 1.5em;
-    }
-    
-    .semester h2 {
-        font-size: 1.25em;
     }
 
     .courseSearchResultsList {
@@ -509,23 +545,15 @@ body {
 
 @media only screen and (max-width: 460px) {
     .courseWrapper {
-        font-size: .85em;
+        font-size: .95em;
     }
 
     .newCourseFormTitle, .courseListTitle {
         font-size: 1.25em;
     }
-    
-    .semester h2 {
-        font-size: 1em;
-    }
 
     .btn, .redbtn {
-        font-size: .85em;
-    }
-
-    .courseSearchResultsList {
-        font-size: .75em;
+        font-size: .9em;
     }
 
     .courseSearchResultsTitle {

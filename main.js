@@ -27,16 +27,16 @@ const searchCourseBtn = document.querySelector(".searchCourse");
 // Clicking on search button
 searchCourseBtn.addEventListener("click", () => {
     // adding loading indicator
-    document.querySelector(".courseSearchResultsList").innerText = "loading..."
+    document.querySelector(".courseSearchResultsList").innerHTML = "<div class='courseSearchLoading'>loading... <div class='loader'></div></div>"
 
     // getting inputs
-    const courseSearchProfessor = document.querySelector(".courseSearchProfessor").value;
+    // const courseSearchProfessor = document.querySelector(".courseSearchProfessor").value;
     const courseSearchCode = document.querySelector(".courseSearchCode").value;
     const courseSearchTerm = document.querySelector(".courseSearchTerm").value;
     const courseSearchYear = document.querySelector(".courseSearchYear").value;
 
     searchForCourses({
-        PROFESSOR: courseSearchProfessor,
+        // PROFESSOR: courseSearchProfessor,
         COURSE_CODE: courseSearchCode, 
         TERM: courseSearchTerm,
         YEAR: courseSearchYear
