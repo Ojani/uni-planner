@@ -104,13 +104,10 @@ body {
     box-sizing: border-box;
 }
 
-.availableCoursesWrapper {
-    overflow-y: scroll;
-    max-height: 50vh;
-}
-
 .availableCourses {
-    margin-top: 1em;
+    border-radius: .75em;
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .course:nth-child(even) {
@@ -172,9 +169,74 @@ body {
 
 .formsAndCourses {
     border-radius: .75em;
+    position: relative;
     overflow-y: scroll;
-    max-height: 63vh;
+    margin-top: 0.5em;
+    height: 63vh;
 }
+
+.formsAndCoursesMenu {
+    justify-content: space-between;
+    box-sizing: border-box;
+    position: absolute;
+    background: #000;
+    font-size: 1.125em;
+    text-wrap: nowrap;
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    width: 100%;
+    z-index: 9;
+    top: 0;
+}
+
+.formsAndCoursesBtns {
+    background: #172A46;
+    padding: .75em .5em;
+    text-align: center;
+    transition: 0.125s;
+    height: 100%;
+    opacity: .70;
+    width: 100%;
+}
+
+.formsAndCoursesMenu>input {
+    display: none;
+}
+
+.formsAndCoursesMenu>input:checked + .formsAndCoursesBtns {
+    opacity: 1;
+}
+
+.formsAndCoursesBtns:hover:not(.formsAndCoursesMenu>input:checked + .formsAndCoursesBtns) {
+    cursor: pointer;
+    opacity: .85;
+}
+
+.formsAndCoursesSections {
+    position: relative;
+    height: 100%;
+}
+
+.formsAndCoursesSections > div {
+    box-sizing: border-box;
+    position: absolute;
+    display: none;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+}
+
+.newCourseForm, .searchCourseForm {
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+/* DISPLAYING PANES DEPENDING ON THE MENU BUTTON WHICH IS CURRENTLY SELECTED */
+.formsAndCoursesMenu:has(#availableCoursesBtn:checked) ~ .formsAndCoursesSections>.availableCoursesWrapper { display: block; }
+.formsAndCoursesMenu:has(#searchCourseBtn:checked) ~ .formsAndCoursesSections>.searchCourseForm { display: flex; }
+.formsAndCoursesMenu:has(#addCourseBtn:checked) ~ .formsAndCoursesSections>.newCourseForm { display: flex; }
 
 .courseFormSection {
     justify-content: space-evenly;
@@ -186,18 +248,18 @@ body {
     width: 100%;
 }
 
-.newCourseForm, .availableCoursesWrapper {
-    border-radius: .75em;
+.formsAndCoursesSections > div {
+    border-radius: 0 0 .75em .75em;
+    padding: 4em 1em 1em 1em;
     background: #172A46;
-    margin-top: 1em;
-    padding: 1em;
 }
 
 .newCourseFormTitle, .courseListTitle {
     margin: 0 0 0 .3em;
     user-select: none;
+    font-size: 1.5em;
     cursor: pointer;
-    font-size: 2em;
+    display: none;
 }
 
 .courseSearchTerm, .courseSearchYear {
@@ -208,10 +270,18 @@ body {
 }
 
 .newCourseFormContent {
-    margin-top: 1em;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 1.125em;
+    display: flex;
+    height: 100%;
 }
 
-.newCourseForm input {
+p:has(+select) {
+    margin-bottom: .5em;
+}
+
+.newCourseForm input, .searchCourseForm input {
     all: unset;
     border-bottom: 1px solid #CCC;
     display: block;
@@ -222,7 +292,7 @@ body {
     color: #AAA;
   }
 
-.newCourseForm input:focus {
+.newCourseForm input:focus, .searchCourseForm input:focus {
     border-bottom: 1px solid var(--highlight);
 }
 
@@ -259,6 +329,7 @@ body {
     transition: .4s;
     height: 100vh;
     width: 100vw;
+    z-index: 12;
     left: 0;
     top: 0;
 }
@@ -471,12 +542,24 @@ body {
         margin-top: 1em;
     }
 
-    .availableCoursesWrapper {
-        max-height: 22vh;
+    .formsAndCourses {
+        height: 30vh;
     }
 
-    .formsAndCourses {
-        max-height: 30vh;
+    .searchCourseForm, .newCourseForm {
+        overflow-y: scroll;
+    }
+
+    .formsAndCoursesSections > div {
+        padding: 3.5em 1em .5em 1em;
+    }
+
+    .addCourse, .searchCourse {
+        margin-bottom: .5em;
+    }
+
+    .newCourseFormContent {
+        font-size: 1em;
     }
 
     .navBar {
@@ -521,7 +604,6 @@ body {
 
     .courseName {
         overflow: scroll;
-        /* text-wrap: nowrap; */
     }
 
     .semester h2 {
