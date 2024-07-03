@@ -279,6 +279,7 @@ body {
 
 p:has(+select) {
     margin-bottom: .5em;
+    /* margin-bottom: 7.5px; */
 }
 
 .newCourseForm input, .searchCourseForm input {
@@ -524,13 +525,11 @@ p:has(+select) {
     }
 
     .main {
+        justify-content: space-between;
         flex-direction: column;
         align-items: center;
         margin-top: 3em;
-    }
-
-    .semester, .courses {
-        width: 90vw;
+        height: 85vh;
     }
 
     .semester:first-child {
@@ -538,16 +537,9 @@ p:has(+select) {
     }
 
     .availableSemesters {
-        max-height: 40vh;
+        max-height: initial;
+        overflow: scroll;
         margin-top: 1em;
-    }
-
-    .formsAndCourses {
-        height: 30vh;
-    }
-
-    .searchCourseForm, .newCourseForm {
-        overflow-y: scroll;
     }
 
     .formsAndCoursesSections > div {
@@ -556,16 +548,6 @@ p:has(+select) {
 
     .courseFormSection:first-child p {
         margin-top: 0em;
-    }
-
-    .addCourse, .searchCourse {
-        margin-bottom: .4em;
-        margin-top: 1.5em;
-        font-size: .85em; 
-    }
-
-    .newCourseFormContent {
-        font-size: .9em;
     }
 
     .navBar {
@@ -604,8 +586,21 @@ p:has(+select) {
         top: 1em;
     }
 
-    .courses, .semester {
+    .courses, .semester { 
         width: 95vw;
+    }
+
+    .semester {
+        transition: opacity .3s;
+        will-change: opacity;
+    }
+
+    .courses, .semesters {
+        flex-direction: column;
+        overflow: hidden;
+        transition: .3s;
+        display: flex;
+        height: 100%;
     }
 
     .courseName {
@@ -614,6 +609,22 @@ p:has(+select) {
 
     .semester h2 {
         font-size: 1.125em;
+    }
+
+    .courses {
+        height: 38vh;
+        flex: 38vh 0 0;
+    }
+
+    .main:has(#searchCourseBtn:checked) .semesters,
+    .main:has(#addCourseBtn:checked) .semesters {
+        pointer-events: none;
+        opacity: .3;
+    }
+
+    .courses:has(#searchCourseBtn:checked), .courses:has(#addCourseBtn:checked) { 
+        flex: 60vh 0 0;
+        height: 60vh;
     }
 }
 
@@ -640,8 +651,8 @@ p:has(+select) {
         font-size: 1.25em;
     }
 
-    .btn, .redbtn {
-        font-size: .9em;
+    .formItem {
+        margin: 0 2.5em;
     }
 
     .courseSearchResultsTitle {
