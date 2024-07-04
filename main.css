@@ -404,6 +404,7 @@ p:has(+select) {
 .courseSearchResultsListItem {
     justify-content: space-between;
     align-items: baseline;
+    position: relative;
     white-space: pre;
     cursor: pointer;
     display: flex;
@@ -420,6 +421,23 @@ p:has(+select) {
 
 .courseSearchResultsListItem:hover {
     background: #2C3B52;
+}
+
+.courseAlreadyAvailable {
+    pointer-events: none;
+    color: #777;
+}
+
+.courseAlreadyAvailable::after {
+    transform: translateY(-50%);
+    background: var(--highlight);
+    content: "available";
+    border-radius: 1em;
+    position: absolute;
+    padding: .125em .75em;
+    color: white;
+    right: 1em;
+    top: 50%;
 }
 
 /* Course styles */

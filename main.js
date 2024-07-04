@@ -56,8 +56,13 @@ async function searchForCourses({ COURSE_CODE, TERM }) {
         i++
         const { courseCode, name, credits } = results[key]
 
+        // Used so that the user knows which courses on the search results
+        // they already have available
+        
+        const isCourseAlreadyAvailable = courseCode in courses;
+
         const resultListItem = document.createElement("label");
-        resultListItem.className = "courseSearchResultsListItem"
+        resultListItem.className = `courseSearchResultsListItem${isCourseAlreadyAvailable? ' courseAlreadyAvailable' : ''}`
         resultListItem.innerHTML = 
         `
             <div><span class="searchListCode">${courseCode}</span>    <span class="searchListCredits">${credits}</span>    <span class="searchListName">${name}</span></div>
