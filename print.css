@@ -1,0 +1,93 @@
+.btn, .redbtn, .navBar, .formsAndCourses, .saveFileSection, .courseSearchResultsBackdrop, .sectionTitle, .removeCourseFromSemester, .coursesPlaceHolder, .addSummerBtn {
+    display: none !important;
+}
+
+body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+
+    font-family: arial;
+    margin: 0;
+}
+
+.availableSemesters {
+    /* justify-content: space-around; */
+    flex-wrap: wrap;
+    font-size: 12px;
+    display: flex;
+    gap: 1em;
+}
+
+.semester {
+    border-bottom: 1px solid #EFEFEF;
+    box-sizing: border-box;
+    padding-bottom: 3em;
+    position: relative;
+    flex: 49vw 0 0;
+}
+
+.totalCredits {
+    position: absolute;
+    bottom: 0;
+}
+
+
+.courseWrapper.repeated>.courseName::after {
+    background: inherit;
+    border-radius: .5em;
+    content: "Repeated";
+    padding: 1em .25em;
+    font-size: .9em;
+    margin: -.5em;
+    color: #000;
+}
+
+
+
+
+.courseWrapper {
+    justify-content: space-evenly;
+    cursor: grabbing;
+    overflow: hidden;
+    display: flex;
+}
+
+.courseWrapper:nth-child(odd) {
+    background: #DFDFDF;
+}
+
+.courseWrapper div {
+    align-items: center;
+    overflow: hidden;
+    display: flex;
+    padding: 1em;
+}
+
+.courseCode {
+    flex: 2;
+}
+
+.courseName {
+    justify-content: space-between;
+    gap: 1em;
+    flex: 7;
+}
+
+.courseCode, .courseCredits {
+    background: inherit;
+    color: #000;
+}
+
+.courseCredits {
+    justify-content: center;
+    flex: 0.75;
+}
+
+
+
+
+.coursesInformation {
+    justify-content: space-between;
+    display: flex;
+    margin: 3em;
+}
