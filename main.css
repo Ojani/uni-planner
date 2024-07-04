@@ -464,6 +464,8 @@ p:has(+select) {
 }
 
 .courseName {
+    justify-content: space-between;
+    gap: 1em;
     flex: 7;
 }
 
@@ -489,6 +491,20 @@ p:has(+select) {
 .crossed {
     cursor: not-allowed;
     opacity: .45;
+}
+
+/* styles for course that is being repeated */
+.courseWrapper.repeated>.courseName::after {
+    background: #0A1930;
+    border-radius: .5em;
+    content: "Repeated";
+    padding: 1em .25em;
+    font-size: .9em;
+    margin: -.5em;
+}
+
+.summer .courseWrapper.repeated>.courseName::after {
+    background: #172A46;
 }
 
 /* course list items for summer the courses list */
