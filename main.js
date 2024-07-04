@@ -324,9 +324,21 @@ function addCourseToSemester(semesterIndex, courseCode) {
 
 function removeSemester(semesterIndex) {
     for(let courseCode of semesters[semesterIndex]) {
-       takenCourses.delete(courseCode)
+        // marking the courses in the deleted semester as not taken
+        takenCourses.delete(courseCode)
     }
     semesters.splice(semesterIndex, 1)
+
+    // removing any summers that won't show up in the list upon removing
+    // the semester. This would be the case if the very last session in
+    // the list is a summer session
+    
+    // This is the case when the amount of summer sessions > the amount
+    // of semester sessions divided by two
+    if(summers.length > semesters.length/2) {
+        removeSummer(summers.length-1)
+    }
+
     updateSemesters()
 }
 
