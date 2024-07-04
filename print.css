@@ -15,7 +15,7 @@ body {
     flex-wrap: wrap;
     font-size: 12px;
     display: flex;
-    gap: 1em;
+    gap: 2%;
 }
 
 .semester {
@@ -23,7 +23,7 @@ body {
     box-sizing: border-box;
     padding-bottom: 3em;
     position: relative;
-    flex: 49vw 0 0;
+    flex: 49% 0 0;
 }
 
 .totalCredits {
