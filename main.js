@@ -30,22 +30,20 @@ searchCourseBtn.addEventListener("click", () => {
     document.querySelector(".courseSearchResultsList").innerHTML = "<div class='courseSearchLoading'>loading<div class='loader'></div></div>"
 
     // getting inputs
-    // const courseSearchProfessor = document.querySelector(".courseSearchProfessor").value;
     const courseSearchCode = document.querySelector(".courseSearchCode").value;
     const courseSearchTerm = document.querySelector(".courseSearchTerm").value;
     const courseSearchYear = document.querySelector(".courseSearchYear").value;
 
     searchForCourses({
-        // PROFESSOR: courseSearchProfessor,
         COURSE_CODE: courseSearchCode, 
         TERM: courseSearchTerm,
         YEAR: courseSearchYear
      })
 })
 
-async function searchForCourses({ COURSE_CODE, TERM }) {
+async function searchForCourses({ COURSE_CODE, TERM, YEAR }) {
     document.querySelector(".courseSearchResultsBackdrop").classList.remove("hidden");
-    const results = await searchCourses({ COURSE_CODE, TERM })
+    const results = await searchCourses({ COURSE_CODE, TERM, YEAR })
 
     const resultListElement = document.querySelector(".courseSearchResultsList");
     resultListElement.innerHTML = ""
