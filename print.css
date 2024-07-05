@@ -11,7 +11,6 @@ body {
 }
 
 .availableSemesters {
-    /* justify-content: space-around; */
     flex-wrap: wrap;
     font-size: 12px;
     display: flex;
@@ -22,6 +21,7 @@ body {
     border-bottom: 1px solid #EFEFEF;
     box-sizing: border-box;
     padding-bottom: 3em;
+    break-inside: avoid;
     position: relative;
     flex: 49% 0 0;
 }
