@@ -65,11 +65,11 @@ body {
 
 .semester {
     padding: 1em 1em .2em 1em;
-    width: max(35vw, 500px);
     box-sizing: border-box;
     background: #172A46;
     border-radius: .75em;
     margin: 1em 0;
+    width: 100%;
 }
 
 .semester h2 {
@@ -77,10 +77,10 @@ body {
 }
 
 .availableSemesters {
+    width: max(35vw, 500px);
     border-radius: .75em;
     overflow-y: scroll;
     max-height: 65vh;
-    width: 100%;
 }
 
 .summer {
@@ -542,7 +542,7 @@ p:has(+select) {
 
 /* responsive media queries */
 @media only screen and (max-width: 1200px) {
-    .semester, .courses {
+    .availableSemesters, .courses {
         width: 45vw;
     }
 }
@@ -620,7 +620,7 @@ p:has(+select) {
         top: 1em;
     }
 
-    .courses, .semester { 
+    .courses, .availableSemesters { 
         width: 95vw;
     }
 

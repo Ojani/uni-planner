@@ -572,6 +572,9 @@ const coursePlannerSaveFileVersion = 1
 // loading/reading save files
 // detecting when a file has been uploaded
 const fileUploadBtn = document.querySelector("#loadSaveFileBtn")
+// Makes it so that the change event is triggered even if the selected file has the same name as the last one
+fileUploadBtn.addEventListener("click", () => fileUploadBtn.value = null)
+
 fileUploadBtn.addEventListener("change", () => {
     if(fileUploadBtn.files.length == 0) return
 
