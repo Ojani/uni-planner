@@ -140,8 +140,9 @@ function getSemestersFromStorage() {
     updateSemesters()
 }
 
+const DEFAULT_COURSES_AVAILABLE = {"MATE3031":{"courseCode":"MATE3031","credits":"4","taken":false,"name":"CALCULUS I"},"MATE3171":{"courseCode":"MATE3171","credits":"3","taken":false,"name":"PRECALCULUS I"},"MATE3172":{"courseCode":"MATE3172","credits":"3","taken":false,"name":"PRECALCULUS II"},"QUIM3041":{"courseCode":"QUIM3041","credits":"4","taken":false,"name":"GENERAL CHEMISTRY I"},"QUIM3042":{"courseCode":"QUIM3042","credits":"4","taken":false,"name":"GENERAL CHEMISTRY II"}}
 function getCoursesFromStorage() {
-    const result = JSON.parse(localStorage.getItem("courses")) || {}
+    const result = JSON.parse(localStorage.getItem("courses")) || DEFAULT_COURSES_AVAILABLE
     updateCourses(result)
     courses = result
 }
