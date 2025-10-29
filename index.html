@@ -49,7 +49,7 @@
                     <div class="searchCourseForm">
                         <div class="newCourseFormTitle">Search Course</div>
                         
-                        <form class="newCourseFormContent">
+                        <form id="newCourseSearchForm" class="newCourseFormContent">
                             <div class="courseFormSection">
                                 <div class="formItem">
                                     <p>Course Code</p>
@@ -78,6 +78,8 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <input id="newCourseSearchFormSubmit" type="submit" hidden />
                         </form>
                         
                         <div class="searchCourse btn">Search Course</div>
@@ -88,7 +90,7 @@
                         
                         <div class="newCourseFormTitle">Add Course</div>
                         
-                        <form class="newCourseFormContent">
+                        <form id="newCourseCreateForm" class="newCourseFormContent">
                             <div class="courseFormSection">
                                 <div class="formItem">
                                     <p>Course Code</p>
@@ -109,6 +111,8 @@
                                     <input placeholder="3" required class="newCourseCredits" type="number">
                                 </div>
                             </div>
+
+                            <input id="newCourseCreateFormSubmit" type="submit" hidden />
                         </form>
                         
                         <div class="addCourse btn">Add Course</div>
@@ -124,7 +128,7 @@
             </div>
 
             <!-- pop up for showing results after searching for courses -->
-            <div class="courseSearchResultsBackdrop hidden">
+            <div class="courseSearchResultsBackdrop hidden escapable">
                 <!-- X button -->
                 <div class="courseSearchResults">
                     <div class="exitCourseSearchResultsBtn">

@@ -282,7 +282,9 @@ p:has(+select) {
     /* margin-bottom: 7.5px; */
 }
 
-.newCourseForm input, .searchCourseForm input {
+.newCourseForm input[type="text"],
+.searchCourseForm input[type="text"],
+.newCourseForm input[type="number"] {
     all: unset;
     border-bottom: 1px solid #CCC;
     display: block;

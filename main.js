@@ -20,12 +20,26 @@ import searchCourses from './lib/courseSearch.js'
     yearSelectorElement.value = currentYear-1
 })();
 
+// MAKING ESCAPE KEY CLOSE CLOSABLE ELEMENTS
+document.addEventListener("keydown", () => {
+    document.querySelectorAll(".escapable:not(.hidden)").forEach((element) => {
+        element.classList.add("hidden");
+    });
+});
+
 
 // SEARCHING FOR COURSES
-const searchCourseBtn = document.querySelector(".searchCourse");
+document.getElementById("newCourseSearchForm").onsubmit = (e) => {
+    e.preventDefault();
+    submitSearchCourseForm();
+};
+
+document.querySelector(".searchCourse").onclick = () => {
+    document.getElementById("newCourseSearchFormSubmit").click();
+}
 
 // Clicking on search button
-searchCourseBtn.addEventListener("click", () => {
+function submitSearchCourseForm() {
     // adding loading indicator
     document.querySelector(".courseSearchResultsList").innerHTML = "<div class='courseSearchLoading'>loading<div class='loader'></div></div>"
 
@@ -39,10 +53,10 @@ searchCourseBtn.addEventListener("click", () => {
         TERM: courseSearchTerm,
         YEAR: courseSearchYear
      })
-})
+}
 
 async function searchForCourses({ COURSE_CODE, TERM, YEAR }) {
-    document.querySelector(".courseSearchResultsBackdrop").classList.remove("hidden");
+    courseSearchResultsBackdrop.classList.remove("hidden");
     const results = await searchCourses({ COURSE_CODE, TERM, YEAR })
 
     const resultListElement = document.querySelector(".courseSearchResultsList");
@@ -78,12 +92,12 @@ async function searchForCourses({ COURSE_CODE, TERM, YEAR }) {
 const courseSearchResultsBackdrop = document.querySelector(".courseSearchResultsBackdrop")
 
 courseSearchResultsBackdrop.addEventListener("click" , (e) => {
-    e.target.classList.add("hidden")
-    e.stopPropagation()
+    e.target.classList.add("hidden");
+    e.stopPropagation();
 });
 
 document.querySelector(".exitCourseSearchResultsBtn").addEventListener("click", () => {
-    courseSearchResultsBackdrop.classList.add("hidden")
+    courseSearchResultsBackdrop.click();
 });
 
 // Adding selected courses
@@ -102,7 +116,6 @@ addCoursesBtn.addEventListener("click", () => {
         courseSearchResultsBackdrop.classList.add("hidden")
     }
 })
-
 
 class Course {
     constructor ({ courseCode, name, credits, taken=false }) {
@@ -378,7 +391,14 @@ updateSemesters()
 
 // Creating Courses and Semesters
 
-document.querySelector(".addCourse").addEventListener("click", () => addCourse());
+document.getElementById("newCourseCreateForm").onsubmit = (e) => {
+    e.preventDefault();
+    addCourse();
+};
+
+document.querySelector(".addCourse").onclick = () => {
+    document.getElementById("newCourseCreateFormSubmit").click();
+}
 
 function addCourse(inputs) {
 
